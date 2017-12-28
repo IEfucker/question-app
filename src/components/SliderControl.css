@@ -1,0 +1,11 @@
+.slider-control{
+  position: fixed;
+  bottom:15px;
+  width:100%;
+  text-align: center;
+  padding:0 20px;
+  box-sizing: border-box;
+}
+.slider-control .next{
+  width:100%;
+}

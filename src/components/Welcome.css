@@ -1,0 +1,19 @@
+.contain{
+  height: 100vh;
+  justify-content: space-around;
+}
+.welcome{
+  width:100px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 28px;
+}
+.start{
+  width: 100px;
+  margin: 0 auto!important;
+}
+.testImg{
+  width:100px;
+  height: 100px;
+  background:url("../assets/images/avatar.png") no-repeat 0 0;
+}

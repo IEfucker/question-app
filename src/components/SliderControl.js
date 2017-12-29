@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './SliderControl.css'
-import { Button } from 'element-react'
+import { Button, MessageBox, Message } from 'element-react'
 
 import 'element-theme-default'
 
@@ -16,23 +16,27 @@ class SliderControl extends Component {
   render() {
     let { hasBeenAnswered, match, length } = this.props,
       { index } = match.params
+    // percent = +index/+length*100
     return (
       <div className="slider-control">
-        {+index > 1 ? (
-          <Button className="prev" type="success" size='large' onClick={
-            this.prev.bind(this)
-          }>上一题</Button>
-        ) : ("")}
-        {+index < +length ? (
-          <Button className="next" type="success" size='large' onClick={
-            this.next.bind(this)
-          } disabled={!hasBeenAnswered}>下一题</Button>
-        ) : ("")}
-        {+index === +length ? (
-          <Button className="next" type="success" size='large' onClick={
-            this.end.bind(this)
-          } disabled={!hasBeenAnswered}>结束</Button>
-        ) : ("")}
+        <div className="control-contain">
+          {+index > 1 ? (
+            <Button className="prev" type="success" size='large' onClick={
+              this.prev.bind(this)
+            }>上一题</Button>
+          ) : ("")}
+          {+index < +length ? (
+            <Button className="next" type="success" size='large' onClick={
+              this.next.bind(this)
+            } disabled={!hasBeenAnswered}>下一题</Button>
+          ) : ("")}
+          {+index === +length ? (
+            <Button className="next" type="success" size='large' onClick={
+              this.submit.bind(this)
+            } disabled={!hasBeenAnswered}>提交</Button>
+          ) : ("")}
+        </div>
+
 
       </div>
     )
@@ -50,8 +54,24 @@ class SliderControl extends Component {
     this.goto(+index - 1)
   }
 
-  end() {
-    console.log('end')
+  submit() {
+    let { submit, answer } = this.props
+    if (answer.includes(undefined)) {
+      MessageBox.confirm('存在未回答的题目，是否仍然提交?', '提示', {
+        type: 'warning'
+      }).then(() => {
+        // Message({
+        //   type: 'success',
+        //   message: '提交成功!'
+        // });
+      }).catch(() => {
+        Message({
+          type: 'info',
+          message: '请填写完整后提交'
+        });
+      });
+    }
+    submit()
   }
 
   goto(index) {

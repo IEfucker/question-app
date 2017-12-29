@@ -1,6 +1,9 @@
 .slider{
   padding:20px;
 }
+.state-contain{
+  text-align: right;
+}
 
 .ant-carousel .slick-slide {
   

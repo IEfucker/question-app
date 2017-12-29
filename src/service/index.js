@@ -1,7 +1,9 @@
 import fetch from 'isomorphic-fetch'
 
+// const host = 'localhost'
+const host = '192.168.69.110'
 const api = {
-  getTest: 'http://localhost:4000/api/qtest'
+  getTest: `http://${host}:4000/api/qtest`
 }
 
 export const fetchTestService = (id) => {

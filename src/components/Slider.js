@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Slider.css'
 import SliderControlContainer from '../containers/SliderControlContainer'
-import { Carousel, Radio } from 'element-react';
+import { Carousel, Radio,Progress } from 'element-react';
+import Counter from './Counter'
 
 class Slider extends Component {
   constructor(props) {
@@ -13,16 +14,23 @@ class Slider extends Component {
 
   render() {
     let { test, answer, match, length } = this.props,
-      { index } = match.params
+      { index } = match.params,
+      percent = +index/+length*100
+    // test是异步取到，没获取到数据什么也不显示
+    if(!length) return null
     if (+index > +length || +index < 1) {
       return "index error"
     }
     return (
       <div className="slider-wrap">
+        <div className="state-contain">
+          <Progress percentage={percent} showText={false} status="success" />
+          <Counter />
+        </div>
+        
+
         <div className="slider">
           <Carousel ref='carousel' autoplay={false} arrow="never" indicatorPosition='none'>
-            {/* <Carousel afterChange={onChange} dots={false}> */}
-            {/* <ul className="slide-contain question-list"> */}
             {test.map((q, index) => (
               <Carousel.Item
                 key={index}
@@ -41,7 +49,6 @@ class Slider extends Component {
                 </ul>
               </Carousel.Item>
             ))}
-            {/* </ul> */}
           </Carousel>
         </div>
         <SliderControlContainer />

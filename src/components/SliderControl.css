@@ -6,6 +6,9 @@
   padding:0 20px;
   box-sizing: border-box;
 }
+.state-contain{
+  margin-bottom: 10px;
+}
 .slider-control .next{
   width:100%;
 }

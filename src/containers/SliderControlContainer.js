@@ -8,12 +8,15 @@ const mapStateToProps = (state, ownProps) => {
   return {
     testPath: '/test/',
     hasBeenAnswered: state.answer[+index - 1] !== undefined,
-    length:state.questions.length
+    length:state.questions.length,
+    answer:state.answer
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-
+  submit:()=>{
+    
+  }
 })
 
 const SliderControlContainer = withRouter(connect(

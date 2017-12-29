@@ -12,7 +12,11 @@ class Slider extends Component {
   }
 
   render() {
-    let { test, answer } = this.props
+    let { test, answer, match, length } = this.props,
+      { index } = match.params
+    if (+index > +length || +index < 1) {
+      return "index error"
+    }
     return (
       <div className="slider-wrap">
         <div className="slider">
@@ -66,7 +70,7 @@ class Slider extends Component {
 
   // Invoked immediately after the component's updates are flushed to the DOM
   componentDidUpdate() {
-    this.refs.carousel.setActiveItem(+this.state.cIndex)
+    this.refs.carousel && this.refs.carousel.setActiveItem(+this.state.cIndex)
   }
 
   onChange(value) {

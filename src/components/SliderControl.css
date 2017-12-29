@@ -9,3 +9,9 @@
 .slider-control .next{
   width:100%;
 }
+.slider-control .prev{
+  width:48%;
+}
+.slider-control .prev+.next{
+  width:48%;
+}

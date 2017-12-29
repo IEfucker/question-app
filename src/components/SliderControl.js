@@ -9,37 +9,34 @@ class SliderControl extends Component {
     super(props);
 
     this.state = {
-      isDisabled: true,
+
     }
   }
 
   render() {
-    let { hasBeenAnswered } = this.props
+    let { hasBeenAnswered, match, length } = this.props,
+      { index } = match.params
     return (
       <div className="slider-control">
-        <Button className="next" type="success" size='large' onClick={
-          this.next.bind(this)
-        } disabled={!hasBeenAnswered}>下一题</Button>
+        {+index > 1 ? (
+          <Button className="prev" type="success" size='large' onClick={
+            this.prev.bind(this)
+          }>上一题</Button>
+        ) : ("")}
+        {+index < +length ? (
+          <Button className="next" type="success" size='large' onClick={
+            this.next.bind(this)
+          } disabled={!hasBeenAnswered}>下一题</Button>
+        ) : ("")}
+        {+index === +length ? (
+          <Button className="next" type="success" size='large' onClick={
+            this.end.bind(this)
+          } disabled={!hasBeenAnswered}>结束</Button>
+        ) : ("")}
+
       </div>
     )
   }
-
-  // componentWillReceiveProps(nextProps) {
-
-  //   let { match } = this.props,
-  //     { index } = match.params
-  //   let { answer} = nextProps,
-  //     { newIndex } = nextProps.match.params
-  //   console.log(index,newIndex)
-  //   if(newIndex){
-  //     index = index === newIndex ? index : newIndex
-  //   }
-
-  //   console.log(answer[+index - 1], index)
-  //   this.setState({
-  //     isDisabled: answer[+index - 1] === undefined
-  //   })
-  // }
 
   next() {
     let { match } = this.props,
@@ -51,6 +48,10 @@ class SliderControl extends Component {
     let { match } = this.props,
       index = match.params.index
     this.goto(+index - 1)
+  }
+
+  end() {
+    console.log('end')
   }
 
   goto(index) {

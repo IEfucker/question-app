@@ -7,7 +7,8 @@ const mapStateToProps = (state, ownProps) => {
     { index } = match.params
   return {
     testPath: '/test/',
-    hasBeenAnswered: state.answer[+index - 1] !== undefined
+    hasBeenAnswered: state.answer[+index - 1] !== undefined,
+    length:state.questions.length
   }
 }
 

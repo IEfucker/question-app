@@ -16,3 +16,5 @@ export const fetchTestService = (id) => {
       console.log(err)
     })
 }
+
+// export const submitTestService = (test)

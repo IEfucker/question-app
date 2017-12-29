@@ -4,7 +4,8 @@ import { fetchTest, answer } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
   test: state.questions,
-  answer:state.answer
+  answer:state.answer,
+  length:state.questions.length
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -1,102 +1,102 @@
-import React, { Component } from 'react';
-import './Slider.css'
-import SliderControlContainer from '../containers/SliderControlContainer'
-import { Carousel, Radio,Progress } from 'element-react';
-import Counter from './Counter'
+import React, { Component } from "react"
+import "./Slider.css"
+import SliderControlContainer from "../containers/SliderControlContainer"
+import { Carousel, Radio, Progress } from "element-react"
+import Counter from "./Counter"
 
 class Slider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cIndex: 0,
-    }
-  }
+	constructor(props) {
+		super(props)
+		this.state = {
+			cIndex: 0,
+		}
+	}
 
-  render() {
-    let { test, answer, match, length } = this.props,
-      { index } = match.params,
-      percent = +index/+length*100
-    // test是异步取到，没获取到数据什么也不显示
-    if(!length) return null
-    if (+index > +length || +index < 1) {
-      return "index error"
-    }
-    return (
-      <div className="slider-wrap">
-        <div className="state-contain">
-          <Progress percentage={percent} showText={false} status="success" />
-          <Counter />
-        </div>
-        
+	render() {
+		let { test, answer, match, length } = this.props,
+			{ index } = match.params,
+			percent = +index / +length * 100
+		// test是异步取到，没获取到数据什么也不显示
+		if (!length) return null
+		if (+index > +length || +index < 1) {
+			return "index error"
+		}
+		return (
+			<div className="slider-wrap">
+				<div className="state-contain">
+					<Progress percentage={percent} showText={false} status="success" />
+					<Counter />
+				</div>
 
-        <div className="slider">
-          <Carousel ref='carousel' autoplay={false} arrow="never" indicatorPosition='none'>
-            {test.map((q, index) => (
-              <Carousel.Item
-                key={index}
-              >
-                <div className="question">{index + 1}. {q.question}</div>
-                <ul className="option-list">
-                  {q.options.map((opt, oIndex) => (
-                    <li
-                      key={oIndex}
-                    >
-                      <Radio value={oIndex} checked={answer[index] === oIndex} onChange={
-                        this.onChange.bind(this)
-                      }>{opt}</Radio>
-                    </li>
-                  ))}
-                </ul>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </div>
-        <SliderControlContainer />
-      </div>
-    )
-  }
 
-  componentWillMount() {
-    let { getTest, match } = this.props,
-      { id } = match.params
-    getTest(id)
-  }
+				<div className="slider">
+					<Carousel ref='carousel' autoplay={false} arrow="never" indicatorPosition='none'>
+						{test.map((q, index) => (
+							<Carousel.Item
+								key={index}
+							>
+								<div className="question">{index + 1}. {q.question}</div>
+								<ul className="option-list">
+									{q.options.map((opt, oIndex) => (
+										<li
+											key={oIndex}
+										>
+											<Radio value={oIndex} checked={answer[index] === oIndex} onChange={
+												this.onChange.bind(this)
+											}>{opt}</Radio>
+										</li>
+									))}
+								</ul>
+							</Carousel.Item>
+						))}
+					</Carousel>
+				</div>
+				<SliderControlContainer />
+			</div>
+		)
+	}
 
-  componentWillReceiveProps(nextProps) {
-    // will be true
-    // const locationChanged = nextProps.location !== this.props.location
+	componentWillMount() {
+		let { getTest, match } = this.props,
+			{ id } = match.params
+		getTest(id)
+	}
 
-    // INCORRECT, will *always* be false because history is mutable.
-    // const locationChanged = nextProps.history.location !== this.props.history.location
-    let { match } = nextProps,
-      { index } = match.params
-    this.setState({
-      cIndex: +index - 1
-    })
-  }
+	componentWillReceiveProps(nextProps) {
+		// will be true
+		// const locationChanged = nextProps.location !== this.props.location
 
-  // Invoked immediately after the component's updates are flushed to the DOM
-  componentDidUpdate() {
-    this.refs.carousel && this.refs.carousel.setActiveItem(+this.state.cIndex)
-  }
+		// INCORRECT, will *always* be false because history is mutable.
+		// const locationChanged = nextProps.history.location !== this.props.history.location
+		let { match } = nextProps,
+			{ index } = match.params
+		this.setState({
+			cIndex: +index - 1
+		})
+	}
 
-  onChange(value) {
-    const { chooseAnswer } = this.props
-    chooseAnswer(this.state.cIndex, value)
-  }
+	// Invoked immediately after the component's updates are flushed to the DOM
+	componentDidUpdate() {
+		this.refs.carousel && this.refs.carousel.setActiveItem(+this.state.cIndex)
+	}
 
-  next() {
-    this.refs.carousel.next()
-  }
+	onChange(value) {
+		const { chooseAnswer } = this.props
+		chooseAnswer(this.state.cIndex, value)
+	}
 
-  prev() {
-    this.refs.carousel.prev()
-  }
+	next() {
+		this.refs.carousel.next()
+	}
 
-  setActiveItem(index) {
-    this.refs.carousel.setActiveItem(index)
-  }
+	prev() {
+		this.refs.carousel.prev()
+	}
+
+	setActiveItem(index) {
+		this.refs.carousel.setActiveItem(index)
+	}
 
 }
 
-export default Slider;
+export default Slider

@@ -1,18 +1,18 @@
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import Welcome from '../components/Welcome'
+import { withRouter } from "react-router-dom"
+import { connect } from "react-redux"
+import Welcome from "../components/Welcome"
 
-const mapStateToProps = (state, ownProps) => ({
-  testPath:'/test/'
+const mapStateToProps = () => ({
+	testPath:"/test/"
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  
+const mapDispatchToProps = () => ({
+
 })
 
 const WelcomeToTest = withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
+	mapStateToProps,
+	mapDispatchToProps
 )(Welcome))
 
 export default WelcomeToTest

@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types";
+import PropTypes from "prop-types"
 // import { withRouter } from 'react-router-dom'
 import "./Welcome.css"
 // import testImg from '../assets/images/avatar.png'
@@ -22,7 +22,7 @@ const Welcome = ({ match, history, testPath }) => (
 	</div >
 )
 
-Welcome.PropTypes = {
+Welcome.propTypes = {
 	match: PropTypes.object.isRequired,
 	history: PropTypes.object.isRequired,
 	testPath: PropTypes.string.isRequired

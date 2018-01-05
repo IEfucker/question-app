@@ -3,6 +3,7 @@ import "./Slider.css"
 import SliderControlContainer from "../containers/SliderControlContainer"
 import { Carousel, Radio, Progress } from "element-react"
 import Counter from "./Counter"
+import PropTypes from "prop-types"
 
 class Slider extends Component {
 	constructor(props) {
@@ -30,7 +31,11 @@ class Slider extends Component {
 
 
 				<div className="slider">
-					<Carousel ref='carousel' autoplay={false} arrow="never" indicatorPosition='none'>
+					<Carousel
+						ref={carousel => { this.carousel = carousel }}
+						autoplay={false}
+						arrow="never"
+						indicatorPosition='none'>
 						{test.map((q, index) => (
 							<Carousel.Item
 								key={index}
@@ -77,7 +82,7 @@ class Slider extends Component {
 
 	// Invoked immediately after the component's updates are flushed to the DOM
 	componentDidUpdate() {
-		this.refs.carousel && this.refs.carousel.setActiveItem(+this.state.cIndex)
+		this.carousel && this.carousel.setActiveItem(+this.state.cIndex)
 	}
 
 	onChange(value) {
@@ -86,17 +91,26 @@ class Slider extends Component {
 	}
 
 	next() {
-		this.refs.carousel.next()
+		this.carousel.next()
 	}
 
 	prev() {
-		this.refs.carousel.prev()
+		this.carousel.prev()
 	}
 
 	setActiveItem(index) {
-		this.refs.carousel.setActiveItem(index)
+		this.carousel.setActiveItem(index)
 	}
 
+}
+
+Slider.propTypes = {
+	test: PropTypes.arrayOf(PropTypes.object).isRequired,
+	answer: PropTypes.array.isRequired,
+	match: PropTypes.object.isRequired,
+	length: PropTypes.number.isRequired,
+	getTest:PropTypes.func.isRequired,
+	chooseAnswer:PropTypes.func.isRequired
 }
 
 export default Slider

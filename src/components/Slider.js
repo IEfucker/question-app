@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import "./Slider.css"
 import SliderControlContainer from "../containers/SliderControlContainer"
-import { Carousel, Radio, Progress } from "element-react"
+import { Carousel, Progress } from "element-react"
 import Counter from "./Counter"
+import Question from "./Question"
 import PropTypes from "prop-types"
 
 class Slider extends Component {
@@ -14,7 +15,7 @@ class Slider extends Component {
 	}
 
 	render() {
-		let { test, answer, match, length } = this.props,
+		let { test, answer, match, length, chooseAnswer } = this.props,
 			{ index } = match.params,
 			percent = +index / +length * 100
 		// test是异步取到，没获取到数据什么也不显示
@@ -29,29 +30,16 @@ class Slider extends Component {
 					<Counter />
 				</div>
 
-
 				<div className="slider">
 					<Carousel
 						ref={carousel => { this.carousel = carousel }}
 						autoplay={false}
-						arrow="never"
-						indicatorPosition='none'>
+						arrow="never" indicatorPosition='none'>
 						{test.map((q, index) => (
 							<Carousel.Item
 								key={index}
 							>
-								<div className="question">{index + 1}. {q.question}</div>
-								<ul className="option-list">
-									{q.options.map((opt, oIndex) => (
-										<li
-											key={oIndex}
-										>
-											<Radio value={oIndex} checked={answer[index] === oIndex} onChange={
-												this.onChange.bind(this)
-											}>{opt}</Radio>
-										</li>
-									))}
-								</ul>
+								<Question q={q} index={index} answer={answer} chooseAnswer={chooseAnswer} cIndex={this.state.cIndex} />
 							</Carousel.Item>
 						))}
 					</Carousel>
@@ -85,11 +73,6 @@ class Slider extends Component {
 		this.carousel && this.carousel.setActiveItem(+this.state.cIndex)
 	}
 
-	onChange(value) {
-		const { chooseAnswer } = this.props
-		chooseAnswer(this.state.cIndex, value)
-	}
-
 	next() {
 		this.carousel.next()
 	}
@@ -109,8 +92,8 @@ Slider.propTypes = {
 	answer: PropTypes.array.isRequired,
 	match: PropTypes.object.isRequired,
 	length: PropTypes.number.isRequired,
-	getTest:PropTypes.func.isRequired,
-	chooseAnswer:PropTypes.func.isRequired
+	getTest: PropTypes.func.isRequired,
+	chooseAnswer: PropTypes.func.isRequired
 }
 
 export default Slider

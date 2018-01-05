@@ -6,19 +6,10 @@
 }
 
 .ant-carousel .slick-slide {
-  
+
 }
 
 .ant-carousel .slick-slide h3 {
   color: #fff;
 }
-.question{
-  margin-bottom: 20px;
-}
-.option-list>li{
-  line-height: 24px;
-  margin:8px 0;
-}
-.option-list .el-radio{
-  white-space: normal;
-}
+
